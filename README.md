@@ -37,7 +37,7 @@ Lo script creerà:
 - Una nuova directory del progetto
 - File di configurazione necessari
 - Struttura base delle cartelle per NVFlare
-- Directory di immagini suddivise per ogni sito
+- Directory di immagini suddivise per ogni client
 
 ### Struttura delle Directory per le Immagini
 ```
@@ -59,9 +59,9 @@ workspace/
 ```
 
 ## Gestione delle Risorse
-Lo script configura automaticamente le risorse per ogni sito:
-- Aggiorna i file `resources.json` per ogni sito
-- Configura l'utilizzo della GPU (1 GPU per sito)
+Lo script configura automaticamente le risorse per ogni client:
+- Aggiorna i file `resources.json` per ogni client
+- Configura l'utilizzo della GPU (1 GPU per client)
 - Gestisce l'allocazione della memoria GPU
 
 ## Note Importanti
@@ -160,12 +160,12 @@ Insert the project sub dir (e.g. 'prod_00'):
 - `NUM_ROUNDS`: Numero di round di training
 - `AGGREGATION_EPOCHS`: Epoche per aggregazione
 - `min_clients`: Numero minimo di client richiesti
-- Configurazione GPU per ogni sito (1 GPU, 1GB memoria)
+- Configurazione GPU per ogni client (1 GPU, 1GB memoria)
 
 ### Note sulla Configurazione
 - I parametri di training sono configurabili nel file `job_builder_setup.json`
 - La configurazione include setup per training distribuito e validazione cross-site
-- Risorse GPU vengono allocate automaticamente per ogni sito
+- Risorse GPU vengono allocate automaticamente per ogni client
 - Il percorso di output dipende dalla sottodirectory specificata
 
 ### Job Builder con Crittografia Omomorfica (HE)
@@ -282,3 +282,77 @@ notebooks/
 - Assicurarsi che l'ambiente Python abbia tutte le dipendenze necessarie
 - Utili per verificare il corretto funzionamento prima del training federato
 - Possono essere utilizzati per confrontare risultati locali e federati
+
+## Struttura Moduli PyTorch (pt/)
+
+### Descrizione
+La directory `pt` contiene i componenti essenziali per l'implementazione del federated learning con PyTorch. È organizzata in tre moduli principali che gestiscono rispettivamente la rete neurale, l'apprendimento e le utility di supporto.
+
+### Struttura e Funzionalità
+
+#### 1. Utils (utils/)
+Contiene gli strumenti per la gestione dei dati:
+- **Gestione Dataset**: Implementazione di dataset personalizzati per il caricamento e la gestione delle immagini
+- **Data Splitting**: Strumenti per la distribuzione dei dati tra i vari siti di training
+- **Utility Generali**: Funzioni di supporto e costanti utilizzate nel progetto
+
+#### 2. Networks (networks/)
+Contiene le implementazioni delle reti neurali:
+- Definizione dell'architettura della rete
+- Configurazione dei layer
+- Parametri del modello
+
+#### 3. Learners (learners/)
+Gestisce la logica di training:
+- Implementazione del training loop
+- Gestione della validazione
+- Integrazione con NVFlare per il federated learning
+- Configurazione dei parametri di training
+
+### Personalizzazione
+I moduli sono progettati per essere facilmente modificabili:
+- È possibile sostituire il modello nella cartella networks
+- Si possono modificare le strategie di splitting dei dati in utils
+- La logica di training nel learner può essere adattata a diverse esigenze
+
+### Note Importanti
+- La struttura supporta sia training centralizzato che federato
+- I componenti sono integrati con il framework NVFlare
+- Tutti i moduli sono documentati e seguono le best practice PyTorch
+
+## Struttura Moduli PyTorch (pt/)
+
+### Descrizione
+La directory `pt` contiene i componenti essenziali per l'implementazione del federated learning con PyTorch. È organizzata in tre moduli principali che gestiscono rispettivamente la rete neurale, l'apprendimento e le utility di supporto.
+
+### Struttura e Funzionalità
+
+#### 1. Utils (utils/)
+Contiene gli strumenti per la gestione dei dati:
+- **Gestione Dataset**: Implementazione di dataset personalizzati per il caricamento e la gestione delle immagini
+- **Data Splitting**: Strumenti per la distribuzione dei dati tra i vari siti di training
+- **Utility Generali**: Funzioni di supporto e costanti utilizzate nel progetto
+
+#### 2. Networks (networks/)
+Contiene le implementazioni delle reti neurali:
+- Definizione dell'architettura della rete
+- Configurazione dei layer
+- Parametri del modello
+
+#### 3. Learners (learners/)
+Gestisce la logica di training:
+- Implementazione del training loop
+- Gestione della validazione
+- Integrazione con NVFlare per il federated learning
+- Configurazione dei parametri di training
+
+### Personalizzazione
+I moduli sono progettati per essere facilmente modificabili:
+- È possibile sostituire il modello nella cartella networks
+- Si possono modificare le strategie di splitting dei dati in utils
+- La logica di training nel learner può essere adattata a diverse esigenze
+
+### Note Importanti
+- La struttura supporta sia training centralizzato che federato
+- I componenti sono integrati con il framework NVFlare
+- Tutti i moduli sono documentati e seguono le best practice PyTorch
