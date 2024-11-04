@@ -6,7 +6,10 @@ Script di automazione per la creazione e configurazione di nuovi progetti NVFlar
 
 ## Prerequisiti
 - Python 3.x
-- NVFlare installato
+- Install dependencies: 
+```bash
+   pip install -r requirements.txt
+   ```
 - File richiesti nella stessa cartella:
   - `project_builder.py`
   - `preconfig_project_folders.py`
