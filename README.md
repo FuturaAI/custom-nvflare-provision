@@ -321,12 +321,6 @@ Gestisce la logica di training:
 - I componenti in `pt/` sono specifici per NVFlare
 - La struttura segue le convenzioni richieste da NVFlare
 
-### Ciclo di Sviluppo Tipico
-1. Sviluppo e test del modello nei notebook standalone
-2. Validazione completa dell'implementazione
-3. Adattamento del codice testato alla struttura richiesta da NVFlare in `pt/`
-4. Utilizzo nel contesto di federated learning
-
 ### ⚠️ Punti di Attenzione
 
 #### 1. Configurazione dei Job
@@ -355,12 +349,3 @@ transforms_train = [
 - Aggiustare la normalizzazione in base alle statistiche del dataset
 - Personalizzare le augmentation in base al tipo di dati
 - Rimuovere trasformazioni non pertinenti
-
-### Ciclo di Sviluppo Tipico
-1. Sviluppo e test del modello nei notebook standalone
-2. Validazione completa dell'implementazione
-3. Adattamento del codice testato alla struttura richiesta da NVFlare in `pt/`
-4. **Verifica della corrispondenza**:
-   - Nomi classi/percorsi e configurazione job
-   - Trasformazioni appropriate per il dataset specifico
-5. Utilizzo nel contesto di federated learning
