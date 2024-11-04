@@ -286,43 +286,6 @@ notebooks/
 ## Struttura Moduli PyTorch (pt/)
 
 ### Descrizione
-La directory `pt` contiene i componenti essenziali per l'implementazione del federated learning con PyTorch. È organizzata in tre moduli principali che gestiscono rispettivamente la rete neurale, l'apprendimento e le utility di supporto.
-
-### Struttura e Funzionalità
-
-#### 1. Utils (utils/)
-Contiene gli strumenti per la gestione dei dati:
-- **Gestione Dataset**: Implementazione di dataset personalizzati per il caricamento e la gestione delle immagini
-- **Data Splitting**: Strumenti per la distribuzione dei dati tra i vari siti di training
-- **Utility Generali**: Funzioni di supporto e costanti utilizzate nel progetto
-
-#### 2. Networks (networks/)
-Contiene le implementazioni delle reti neurali:
-- Definizione dell'architettura della rete
-- Configurazione dei layer
-- Parametri del modello
-
-#### 3. Learners (learners/)
-Gestisce la logica di training:
-- Implementazione del training loop
-- Gestione della validazione
-- Integrazione con NVFlare per il federated learning
-- Configurazione dei parametri di training
-
-### Personalizzazione
-I moduli sono progettati per essere facilmente modificabili:
-- È possibile sostituire il modello nella cartella networks
-- Si possono modificare le strategie di splitting dei dati in utils
-- La logica di training nel learner può essere adattata a diverse esigenze
-
-### Note Importanti
-- La struttura supporta sia training centralizzato che federato
-- I componenti sono integrati con il framework NVFlare
-- Tutti i moduli sono documentati e seguono le best practice PyTorch
-
-## Struttura Moduli PyTorch (pt/)
-
-### Descrizione
 La directory `pt` contiene i componenti per l'implementazione del federated learning con PyTorch da utilizzare con NVFlare. La struttura presente è un esempio di riferimento che mostra come organizzare il codice dopo averlo testato nei notebook.
 
 ### Workflow di Sviluppo
