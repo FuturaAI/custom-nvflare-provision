@@ -323,7 +323,13 @@ I moduli sono progettati per essere facilmente modificabili:
 ## Struttura Moduli PyTorch (pt/)
 
 ### Descrizione
-La directory `pt` contiene i componenti essenziali per l'implementazione del federated learning con PyTorch. È organizzata in tre moduli principali che gestiscono rispettivamente la rete neurale, l'apprendimento e le utility di supporto.
+La directory `pt` contiene i componenti per l'implementazione del federated learning con PyTorch da utilizzare con NVFlare. La struttura presente è un esempio di riferimento che mostra come organizzare il codice dopo averlo testato nei notebook.
+
+### Workflow di Sviluppo
+1. Il codice viene inizialmente sviluppato e testato nei notebook (`notebooks/`)
+2. Una volta validata l'implementazione nei notebook standalone
+3. Si crea la struttura appropriata in `pt/` per l'integrazione con NVFlare
+4. I componenti in `pt/` vengono utilizzati esclusivamente per il training federato
 
 ### Struttura e Funzionalità
 
@@ -346,13 +352,52 @@ Gestisce la logica di training:
 - Integrazione con NVFlare per il federated learning
 - Configurazione dei parametri di training
 
-### Personalizzazione
-I moduli sono progettati per essere facilmente modificabili:
-- È possibile sostituire il modello nella cartella networks
-- Si possono modificare le strategie di splitting dei dati in utils
-- La logica di training nel learner può essere adattata a diverse esigenze
-
 ### Note Importanti
-- La struttura supporta sia training centralizzato che federato
-- I componenti sono integrati con il framework NVFlare
-- Tutti i moduli sono documentati e seguono le best practice PyTorch
+- Il codice presente è un esempio di riferimento
+- Lo sviluppo iniziale avviene nei notebook standalone
+- I componenti in `pt/` sono specifici per NVFlare
+- La struttura segue le convenzioni richieste da NVFlare
+
+### Ciclo di Sviluppo Tipico
+1. Sviluppo e test del modello nei notebook standalone
+2. Validazione completa dell'implementazione
+3. Adattamento del codice testato alla struttura richiesta da NVFlare in `pt/`
+4. Utilizzo nel contesto di federated learning
+
+### ⚠️ Punti di Attenzione
+
+#### 1. Configurazione dei Job
+Quando si configurano i job (in `job_builder.py` o `job_builder_HE.py`), i nomi delle classi e i percorsi devono corrispondere esattamente alla struttura presente in `pt/`:
+
+```python
+# Questi import devono corrispondere alla struttura attuale
+from pt.utils.data_splitter import CustomDataSplitter
+from pt.networks.nets import CustomModel
+from pt.learners.custom_learner import CustomLearner
+```
+
+#### 2. Trasformazioni Dataset
+Le trasformazioni attuali nel codice sono specifiche per il dataset di esempio (immagini in scala di grigi):
+```python
+transforms_train = [
+    transforms.Grayscale(num_output_channels=1),
+    transforms.Resize((224, 224)),
+    # altre trasformazioni specifiche per immagini in scala di grigi
+]
+```
+
+⚠️ Queste trasformazioni **devono essere modificate** in base al proprio dataset:
+- Adattare le dimensioni di resize
+- Modificare il numero di canali (es. 3 per RGB)
+- Aggiustare la normalizzazione in base alle statistiche del dataset
+- Personalizzare le augmentation in base al tipo di dati
+- Rimuovere trasformazioni non pertinenti
+
+### Ciclo di Sviluppo Tipico
+1. Sviluppo e test del modello nei notebook standalone
+2. Validazione completa dell'implementazione
+3. Adattamento del codice testato alla struttura richiesta da NVFlare in `pt/`
+4. **Verifica della corrispondenza**:
+   - Nomi classi/percorsi e configurazione job
+   - Trasformazioni appropriate per il dataset specifico
+5. Utilizzo nel contesto di federated learning
