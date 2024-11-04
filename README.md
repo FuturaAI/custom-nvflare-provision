@@ -1,5 +1,5 @@
-# NVFlare Esempio
-# Setup NVFlare
+# NVFlare Custom Provision
+## Setup NVFlare
 
 ## Descrizione
 Script di automazione per la creazione e configurazione di nuovi progetti NVFlare. Lo script gestisce automaticamente il processo di provisioning e la configurazione iniziale del progetto, inclusa la gestione della distribuzione dei dataset di immagini.
