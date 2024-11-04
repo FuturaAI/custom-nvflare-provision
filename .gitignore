@@ -5,3 +5,5 @@ __pycache__
 __pycache__/
 
 workspace/
+
+nvflare_project_config_*.yml
