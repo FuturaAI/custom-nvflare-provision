@@ -92,7 +92,7 @@ client_app = ClientAppConfig()
 pneumonia_learner = CustomLearner(
     train_idx_root=TRAIN_SPLIT_ROOT,
     aggregation_epochs=AGGREGATION_EPOCHS,
-    lr=0.0007
+    lr=0.003
 )
 client_app.add_component("pneumonia_learner", pneumonia_learner)
 
@@ -127,4 +127,4 @@ os.makedirs(job_output_dir, exist_ok=True)
 job_config.generate_job_config(job_output_dir)
 
 print(f"Job configuration generated in: {job_output_dir}")
-print("WARNING! Remember to remove from config_fed_client.json")
+print("WARNING! Remember to remove 'encrypt_layers' from config_fed_client.json")

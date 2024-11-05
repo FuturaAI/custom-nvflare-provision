@@ -186,11 +186,46 @@ python job_builder_HE.py
 
 #### Note Importanti per HE
 - Richiede il file di configurazione `config/job_builder_HE_setup.json`
-- Learning rate ridotto (0.0007) per stabilità con HE
-- È necessario rimuovere alcune configurazioni da `config_fed_client.json`
 - Prestazioni leggermente inferiori ma maggiore sicurezza dei dati
 
-[... contenuto precedente fino alla sezione Script di Avvio Multi-Server ...]
+#### Modifiche Richieste al config_fed_client.json
+È necessario rimuovere il parametro `encrypt_layers` dai task_result_filters. Specificamente:
+
+1. Per il filtro del task "train":
+```json
+{
+    "path": "nvflare.app_opt.he.model_encryptor.HEModelEncryptor",
+    "args": {
+        "aggregation_weights": {},
+        "data_kinds": [
+            "WEIGHT_DIFF",
+            "WEIGHTS"
+        ]
+    }
+}
+```
+
+2. Per il filtro del task "submit_model":
+```json
+{
+    "path": "nvflare.app_opt.he.model_encryptor.HEModelEncryptor",
+    "args": {
+        "aggregation_weights": {},
+        "weigh_by_local_iter": false,
+        "data_kinds": [
+            "WEIGHT_DIFF",
+            "WEIGHTS"
+        ]
+    }
+}
+```
+
+⚠️ **Importante**: Rimuovere la chiave `encrypt_layers` da entrambi i filtri per:
+- Evitare conflitti di configurazione
+- Garantire il corretto funzionamento della crittografia omomorfica
+- Mantenere la compatibilità con il job builder HE
+
+Il resto della configurazione può rimanere invariato.
 
 ## Console di Amministrazione NVFlare
 
