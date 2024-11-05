@@ -424,7 +424,7 @@ transforms_train = [
 - Personalizzare le augmentation in base al tipo di dati
 - Rimuovere trasformazioni non pertinenti
 
-## Notebooks Avanzati (/notebooks/advanced/)
+## Notebooks Avanzati (/notebooks/advanced_nvflare/)
 
 ### Notebooks di Inferenza NVFlare
 Sono disponibili due versioni del notebook di inferenza per testare i modelli addestrati con NVFlare:
@@ -443,7 +443,7 @@ Sono disponibili due versioni del notebook di inferenza per testare i modelli ad
 
 ### Struttura
 ```
-notebooks/advanced/
+notebooks/advanced_nvflare/
 ├── nvflare_inference.ipynb      # Inferenza standard
 ├── nvflare_inference_HE.ipynb   # Inferenza con HE
 ├── models/                      # Directory modelli salvati

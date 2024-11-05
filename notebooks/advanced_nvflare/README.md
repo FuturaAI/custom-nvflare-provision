@@ -1,10 +1,10 @@
-# Advanced Notebooks
+# Advanced Notebooks NVFlare
 
 Questa directory contiene i notebook e le risorse necessarie per l'inferenza sui modelli addestrati, sia con training federato standard che con crittografia omomorfica (HE).
 
 ## Struttura
 ```
-advanced/
+advanced_nvflare/
 ├── models/                      # Directory per i modelli addestrati
 ├── tenseal_context/            # Directory per contesti di crittografia
 ├── nvflare_inference.ipynb     # Inferenza standard
