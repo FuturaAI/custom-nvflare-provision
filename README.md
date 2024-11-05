@@ -14,7 +14,7 @@ Script di automazione per la creazione e configurazione di nuovi progetti NVFlar
   - `project_builder.py`
   - `preconfig_project_folders.py`
   - `prebuild_images_split.py`
-  - Directory `images` contenente le immagini da distribuire, le immagini devono essere divise in cartelle con il nome della label come         nell'esempio
+  - Directory `images` contenente le immagini da distribuire e per lo split ( train, val, test), le immagini devono essere divise in cartelle con il nome della label come nell'esempio
 
 ## Come Utilizzare lo Script
 
