@@ -423,3 +423,47 @@ transforms_train = [
 - Aggiustare la normalizzazione in base alle statistiche del dataset
 - Personalizzare le augmentation in base al tipo di dati
 - Rimuovere trasformazioni non pertinenti
+
+## Notebooks Avanzati (/notebooks/advanced/)
+
+### Notebooks di Inferenza NVFlare
+Sono disponibili due versioni del notebook di inferenza per testare i modelli addestrati con NVFlare:
+
+1. **nvflare_inference.ipynb**
+   - Inferenza standard per modelli addestrati senza crittografia
+   - Carica direttamente i modelli PyTorch
+   - Valutazione più veloce e diretta
+   - Per modelli addestrati con training federato standard
+
+2. **nvflare_inference_HE.ipynb**
+   - Inferenza specializzata per modelli addestrati con crittografia omomorfica
+   - Richiede componenti aggiuntivi per la decrittografia
+   - Gestisce i modelli crittografati
+   - Per modelli addestrati con training federato HE
+
+### Struttura
+```
+notebooks/advanced/
+├── nvflare_inference.ipynb      # Inferenza standard
+├── nvflare_inference_HE.ipynb   # Inferenza con HE
+├── models/                      # Directory modelli salvati
+└── tenseal_context/            # Directory contesti HE
+```
+
+### Componenti di Supporto
+
+1. **models/**
+   - Directory per salvare i modelli addestrati
+   - Utilizzata da entrambi i notebook
+   - Contiene i checkpoint dei modelli FL
+
+2. **tenseal_context/**
+   - Directory per i contesti di crittografia omomorfica
+   - Richiesta solo per nvflare_inference_HE.ipynb
+   - Contiene i file per la gestione della crittografia
+
+### Note Importanti
+- Scegliere il notebook appropriato in base al tipo di training utilizzato
+- Standard (nvflare_inference.ipynb) per training federato normale
+- HE (nvflare_inference_HE.ipynb) per training con crittografia omomorfica
+- Entrambi i notebook eseguono test su un massimo di 1000 immagini per valutazione rapida

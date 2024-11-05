@@ -55,8 +55,8 @@ for site in "${SITES[@]}"; do
     
     # Se non è l'ultimo elemento dell'array, aspetta 7 secondi
     if [ "$site" != "${SITES[-1]}" ]; then
-        echo "Attendo 5 secondi prima di avviare il prossimo server..."
-        sleep 7
+        echo "Attendo 10 secondi prima di avviare il prossimo server..."
+        sleep 10
     fi
 done
 

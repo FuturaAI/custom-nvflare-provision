@@ -7,3 +7,5 @@ __pycache__/
 workspace/
 
 nvflare_project_config_*.yml
+
+split_images/
