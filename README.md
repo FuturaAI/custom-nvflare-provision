@@ -248,6 +248,42 @@ abort_job job_id      # Interrompe un job in esecuzione
 - Assicurarsi di seguire l'ordine corretto di shutdown (prima client, poi server)
 - Verificare sempre lo stato dei componenti prima di eseguire operazioni critiche
 
+#### Gestione Job
+```bash
+# Lista e gestione job
+list_jobs             # Mostra tutti i job disponibili
+submit_job job_name   # Sottomette un nuovo job
+abort_job job_id      # Interrompe un job in esecuzione
+```
+
+#### Download e Gestione Risultati
+```bash
+# Verifica stato download
+check_status job_id          # Controlla lo stato di un job specifico
+
+# Download risultati
+download_job job_id          # Scarica i risultati del job
+download_job job_id -d path  # Scarica specificando il percorso
+```
+
+I risultati del download includeranno:
+- I modelli addestrati
+- Log di training
+- Metriche di performance
+- File di configurazione utilizzati
+
+### Percorso dei Risultati
+Dopo il download, i risultati si troveranno in:
+```
+workspace/<nome_progetto>/<prod_directory>/admin@nvidia.com/transfer
+```
+
+### Note sul Download
+- Attendere il completamento del job prima di scaricare
+- Verificare lo stato con `check_status`
+- I download sono incrementali (scarica solo i nuovi file)
+- Possibilità di specificare una directory di destinazione personalizzata
+
 ## Notebooks per Training e Inference
 
 ### Descrizione
