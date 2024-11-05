@@ -31,7 +31,7 @@ advanced_nvflare/
 - Contiene i contesti necessari per la crittografia omomorfica
 - Richiesto solo per l'inferenza HE
 - Deve contenere i file di contesto appropriati per la decrittografia
-- Il file presente è solo un esempio, è da sostituire con il client_context.tenseal di uno dei client per la decriptazione.
+- Il file presente è solo un esempio, è da sostituire con il client_context.tenseal di uno dei client usato nel training di NVFlare.
 
 ## Utilizzo
 1. Copiare il modello addestrato nella cartella `models/`
