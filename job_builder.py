@@ -88,7 +88,7 @@ client_app = ClientAppConfig()
 pneumonia_learner = CustomLearner(
     train_idx_root=TRAIN_SPLIT_ROOT,
     aggregation_epochs=AGGREGATION_EPOCHS,
-    lr=0.003
+    lr=0.0007
 )
 client_app.add_component("pneumonia_learner", pneumonia_learner)
 

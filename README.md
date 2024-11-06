@@ -1,8 +1,57 @@
 # Custom NVFlare Provision
-## Setup NVFlare
+
+## Overview
+Questo progetto implementa un sistema di federated learning utilizzando NVIDIA FLARE. La struttura è organizzata per guidare lo sviluppo dal test locale fino all'implementazione federata, seguendo un approccio step-by-step.
+
+## Adattabilità del Sistema
+Gli script e i componenti presenti nel progetto sono configurati come esempio per un dataset di immagini specifico presente nella cartella 'images'. Tuttavia, la struttura è progettata per essere facilmente adattabile a diversi tipi di dati e problemi. 
+
+## Workflow
+
+### 1. Setup Iniziale
+Il primo passo prevede la creazione della struttura del progetto e la distribuzione del dataset tra i vari server/client (nvflare) e notebooks. Il dataset di partenza deve essere organizzato nella cartella 'images' seguendo una struttura predefinita.
+
+### 2. Fase di Sviluppo
+Utilizzo dei notebook di training per lo sviluppo e il test locale. In questa fase si definisce l'architettura del modello, si configurano le trasformazioni del dataset e si verifica il corretto funzionamento del training.
+
+### 3. Implementazione Federata
+Una volta validato il modello localmente, il codice viene adattato alla struttura richiesta da NVFlare utilizzando i template presenti nella cartella pt/. Questa fase richiede particolare attenzione nell'allineamento dei nomi delle classi e dei percorsi.
+
+### 4. Training Distribuito
+Il training federato viene gestito attraverso l'admin console di NVFlare, che permette di monitorare e controllare l'intero processo di training distribuito.
+
+### 5. Validazione
+La fase finale prevede la validazione del modello federato utilizzando i notebook di inferenza, disponibili sia per il training standard che per quello con crittografia omomorfica.
+
+## Note Importanti
+- È fondamentale seguire l'ordine sequenziale delle operazioni
+- Il codice presente in pt/ serve come riferimento da adattare
+- Si consiglia di testare approfonditamente ogni componente in locale
+- La struttura dei nomi e dei percorsi deve essere mantenuta coerente
+
+[... contenuto precedente ...]
+
+## ⚠️ Note Tecniche
+
+### Distribuzione dei Dati
+Il sistema utilizza un `CustomDataSplitter` che implementa una strategia di Dirichlet sampling per creare una partizione eterogenea dei dati tra i siti. 
+
+#### Configurazione Split
+Il path per lo split viene configurato nel file `config/job_builder_setup.json`:
+- Il parametro `train_split_root` nel JSON definisce dove verranno salvati gli indici dello split
+- Questo path viene utilizzato sia dal data splitter che dal learner
+- Viene utilizzato lo stesso path anche nella versione HE (`job_builder_HE_setup.json`)
+
+#### Caratteristiche dello Split
+- I dati vengono distribuiti in modo non uniforme tra i client
+- Viene utilizzato un parametro alpha (default 5.0) per controllare l'eterogeneità della distribuzione
+- Ogni client riceve un sottoinsieme bilanciato ma non identicamente distribuito dei dati
+- Viene generato un file summary.txt con le statistiche della distribuzione
+
+## Setup NVFlare 
 
 ## Descrizione
-Script di automazione per la creazione e configurazione di nuovi progetti NVFlare. Lo script gestisce automaticamente il processo di provisioning e la configurazione iniziale del progetto, inclusa la gestione della distribuzione dei dataset di immagini.
+Script di automazione per la creazione e configurazione di nuovi progetti NVFlare. Lo script gestisce automaticamente il processo di provisioning e la configurazione iniziale del progetto, **inclusa la gestione della distribuzione dei dataset di immagini che vengono utilizzate automaticamente anche dai notebooks**.
 
 ## Prerequisiti
 - Python 3.x
@@ -72,6 +121,83 @@ Lo script configura automaticamente le risorse per ogni client:
 - Il nome del progetto non deve contenere spazi
 - Attendere il completamento di tutti i passaggi prima di utilizzare il progetto
 - Verificare che la directory `images` sia presente prima dell'esecuzione
+
+## Notebooks per Training e Inference
+
+### Descrizione
+La directory `notebooks` nella root del progetto contiene Jupyter notebooks per l'esecuzione di training standalone e inference. Questi notebook sono utili per:
+- Test preliminari del modello
+- Verifica del training locale
+- Esecuzione di inference
+- Debug del pipeline di training
+
+### Struttura Directory
+```
+notebooks/
+├── advanced_nvflare/        # Inferenza dedicata ai modelli generati con NVFlare
+├── datasets/                # Dove viene salvato lo split delle immagini
+├── local_training.ipynb     # Training standalone con validazione integrata
+├── model_checkpoints/       # Dove vengono salvati i best_models.pth
+└── inference.ipynb          # Esecuzione inference
+```
+
+### Utilizzo dei Notebooks
+
+1. **Training Locale (local_training.ipynb)**:
+   - Permette di testare l'architettura del modello
+   - Verifica il pipeline di training
+   - Include fase di validazione integrata
+   - Utile per debug preliminare
+   - Permette di verificare le performance del modello
+
+2. **Inference (inference.ipynb)**:
+   - Esecuzione di predizioni su nuovi dati
+   - Test del modello addestrato
+   - Valutazione delle performance
+
+### Note Importanti
+- I notebooks utilizzano la stessa struttura dati del training federato
+- Assicurarsi che l'ambiente Python abbia tutte le dipendenze necessarie
+- Utili per verificare il corretto funzionamento prima del training federato
+- Possono essere utilizzati per confrontare risultati locali e federati
+
+## Struttura Moduli PyTorch (pt/)
+
+### Descrizione
+La directory `pt` contiene i componenti per l'implementazione del federated learning con PyTorch da utilizzare con NVFlare. La struttura presente è un esempio di riferimento che mostra come organizzare il codice dopo averlo testato nei notebook.
+
+### Workflow di Sviluppo
+1. Il codice viene inizialmente sviluppato e testato nei notebook (`notebooks/`)
+2. Una volta validata l'implementazione nei notebook standalone
+3. Si crea la struttura appropriata in `pt/` per l'integrazione con NVFlare
+4. I componenti in `pt/` vengono utilizzati esclusivamente per il training federato
+
+### Struttura e Funzionalità
+
+#### 1. Utils (utils/)
+Contiene gli strumenti per la gestione dei dati:
+- **Gestione Dataset**: Implementazione di dataset personalizzati per il caricamento e la gestione delle immagini
+- **Data Splitting**: Strumenti per la distribuzione dei dati tra i vari siti di training
+- **Utility Generali**: Funzioni di supporto e costanti utilizzate nel progetto
+
+#### 2. Networks (networks/)
+Contiene le implementazioni delle reti neurali:
+- Definizione dell'architettura della rete
+- Configurazione dei layer
+- Parametri del modello
+
+#### 3. Learners (learners/)
+Gestisce la logica di training:
+- Implementazione del training loop
+- Gestione della validazione
+- Integrazione con NVFlare per il federated learning
+- Configurazione dei parametri di training
+
+### Note Importanti
+- Il codice presente è un esempio di riferimento
+- Lo sviluppo iniziale avviene nei notebook standalone
+- I componenti in `pt/` sono specifici per NVFlare
+- La struttura segue le convenzioni richieste da NVFlare
 
 ## Script di Avvio Multi-Server
 
@@ -318,82 +444,6 @@ workspace/<nome_progetto>/<prod_directory>/admin@nvidia.com/transfer
 - Verificare lo stato con `check_status`
 - I download sono incrementali (scarica solo i nuovi file)
 - Possibilità di specificare una directory di destinazione personalizzata
-
-## Notebooks per Training e Inference
-
-### Descrizione
-La directory `notebooks` nella root del progetto contiene Jupyter notebooks per l'esecuzione di training standalone e inference. Questi notebook sono utili per:
-- Test preliminari del modello
-- Verifica del training locale
-- Esecuzione di inference
-- Debug del pipeline di training
-
-### Struttura Directory
-```
-notebooks/
-├── datasets/                # Dove viene salvato lo split delle immagini
-├── local_training.ipynb     # Training standalone con validazione integrata
-├── model_checkpoints/       # Dove vengono salvati i best_models.pth
-└── inference.ipynb          # Esecuzione inference
-```
-
-### Utilizzo dei Notebooks
-
-1. **Training Locale (local_training.ipynb)**:
-   - Permette di testare l'architettura del modello
-   - Verifica il pipeline di training
-   - Include fase di validazione integrata
-   - Utile per debug preliminare
-   - Permette di verificare le performance del modello
-
-2. **Inference (inference.ipynb)**:
-   - Esecuzione di predizioni su nuovi dati
-   - Test del modello addestrato
-   - Valutazione delle performance
-
-### Note Importanti
-- I notebooks utilizzano la stessa struttura dati del training federato
-- Assicurarsi che l'ambiente Python abbia tutte le dipendenze necessarie
-- Utili per verificare il corretto funzionamento prima del training federato
-- Possono essere utilizzati per confrontare risultati locali e federati
-
-## Struttura Moduli PyTorch (pt/)
-
-### Descrizione
-La directory `pt` contiene i componenti per l'implementazione del federated learning con PyTorch da utilizzare con NVFlare. La struttura presente è un esempio di riferimento che mostra come organizzare il codice dopo averlo testato nei notebook.
-
-### Workflow di Sviluppo
-1. Il codice viene inizialmente sviluppato e testato nei notebook (`notebooks/`)
-2. Una volta validata l'implementazione nei notebook standalone
-3. Si crea la struttura appropriata in `pt/` per l'integrazione con NVFlare
-4. I componenti in `pt/` vengono utilizzati esclusivamente per il training federato
-
-### Struttura e Funzionalità
-
-#### 1. Utils (utils/)
-Contiene gli strumenti per la gestione dei dati:
-- **Gestione Dataset**: Implementazione di dataset personalizzati per il caricamento e la gestione delle immagini
-- **Data Splitting**: Strumenti per la distribuzione dei dati tra i vari siti di training
-- **Utility Generali**: Funzioni di supporto e costanti utilizzate nel progetto
-
-#### 2. Networks (networks/)
-Contiene le implementazioni delle reti neurali:
-- Definizione dell'architettura della rete
-- Configurazione dei layer
-- Parametri del modello
-
-#### 3. Learners (learners/)
-Gestisce la logica di training:
-- Implementazione del training loop
-- Gestione della validazione
-- Integrazione con NVFlare per il federated learning
-- Configurazione dei parametri di training
-
-### Note Importanti
-- Il codice presente è un esempio di riferimento
-- Lo sviluppo iniziale avviene nei notebook standalone
-- I componenti in `pt/` sono specifici per NVFlare
-- La struttura segue le convenzioni richieste da NVFlare
 
 ### ⚠️ Punti di Attenzione
 
