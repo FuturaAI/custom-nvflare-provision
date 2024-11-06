@@ -218,9 +218,9 @@ Script per l'avvio automatico sequenziale dei server NVFlare (localhost e siti c
 
 ### Sequenza di Esecuzione
 1. Avvio del server localhost
-2. Attesa di 7 secondi
+2. Attesa di 10 secondi
 3. Avvio di site-1
-4. Attesa di 7 secondi
+4. Attesa di 10 secondi
 5. Avvio di site-2
 
 ### Gestione
