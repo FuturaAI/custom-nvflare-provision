@@ -29,8 +29,6 @@ La fase finale prevede la validazione del modello federato utilizzando i noteboo
 - Si consiglia di testare approfonditamente ogni componente in locale
 - La struttura dei nomi e dei percorsi deve essere mantenuta coerente
 
-[... contenuto precedente ...]
-
 ## ⚠️ Note Tecniche
 
 ### Distribuzione dei Dati
