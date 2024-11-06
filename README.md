@@ -431,8 +431,12 @@ I risultati del download includeranno:
 - Metriche di performance
 - File di configurazione utilizzati
 
-### Percorso dei Risultati
-Dopo il download, i risultati si troveranno in:
+### Storage e Percorsi dei Job
+Durante l'esecuzione, i job e i loro risultati vengono temporaneamente salvati in:
+```
+/tmp/nvflare/jobs-storage/<job-id>/
+```
+Questo è il percorso sul server dove vengono effettivamente memorizzati i risultati durante l'esecuzione. Quando si esegue il comando `download_job`, i file vengono copiati da questa location temporanea alla directory di destinazione:
 ```
 workspace/<nome_progetto>/<prod_directory>/admin@nvidia.com/transfer
 ```
@@ -442,6 +446,8 @@ workspace/<nome_progetto>/<prod_directory>/admin@nvidia.com/transfer
 - Verificare lo stato con `check_status`
 - I download sono incrementali (scarica solo i nuovi file)
 - Possibilità di specificare una directory di destinazione personalizzata
+- Il comando `download_job` trasferisce i file dalla directory temporanea `/tmp/nvflare/jobs-storage/` alla directory di destinazione
+- In un deployment distribuito, questo processo avverrebbe attraverso la rete, ma in locale è una semplice copia tra directory
 
 ### ⚠️ Punti di Attenzione
 
