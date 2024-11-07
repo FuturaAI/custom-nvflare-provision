@@ -1,5 +1,11 @@
 # Guida Step-by-Step
-**N.B. La parte di Sviluppo e Test Locale è possibile saltarla in caso si voglia testare nvflare con la configurazione già presente**
+
+**N.B.** 
+Questa guida include una fase iniziale di sviluppo e test locale che può essere saltata se si desidera utilizzare direttamente la configurazione di esempio già presente nel progetto.
+
+**Documentazione**
+Per una spiegazione dettagliata di ogni componente e processo, consultare il file `DOCS.md`. Si consiglia di farvi riferimento in caso di dubbi o per approfondimenti su specifiche funzionalità.
+
 ## 1. Sviluppo e Test Locale
 ### A. Test nel Notebook
 ```
