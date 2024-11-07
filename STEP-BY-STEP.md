@@ -1,10 +1,9 @@
 # Guida Step-by-Step
-
+**N.B. La parte di Sviluppo e Test Locale è possibile saltarla in caso si voglia testare nvflare con la configurazione già presente**
 ## 1. Sviluppo e Test Locale
-**N.B. La parte di sviluppo e test non è necessaria per testare il federate con la struttura già presente**
 ### A. Test nel Notebook
 ```
-notebooks/training/local_training.ipynb
+notebooks/local_training.ipynb
 ```
 - Sviluppa e testa l'architettura del modello
 - Configura le trasformazioni del dataset
