@@ -59,6 +59,7 @@ workspace/
 # Avviare la console di amministrazione
 ./fl_admin.sh <nome_progetto> prod_00
 ```
+- Inserire "admin@nvidia.com" come default username
 - Verifica la connessione di tutti i client con `check all`
 
 ## 5. Configurazione e Sottomissione Job
