@@ -1,4 +1,4 @@
-# Custom NVFlare Provision
+# Custom NVFlare Provision Documentation
 
 ## Overview
 Questo progetto implementa un sistema di federated learning utilizzando NVIDIA FLARE. La struttura è organizzata per guidare lo sviluppo dal test locale fino all'implementazione federata, seguendo un approccio step-by-step.
