@@ -30,6 +30,13 @@ pt/
 - Verifica che i path siano corretti
 
 ## 2. Setup Iniziale del Progetto
+
+- Creare l'environment di sviluppo e installare i moduli python necessari:
+```bash
+python3 -m venv .venv
+pip install -r requirements.txt
+```
+
 ```bash
 # Eseguire il setup del progetto
 ./launch_provision.sh <nome_progetto>
