@@ -159,6 +159,41 @@ notebooks/
 - Utili per verificare il corretto funzionamento prima del training federato
 - Possono essere utilizzati per confrontare risultati locali e federati
 
+## Script di Avvio Federate
+
+### Descrizione
+Script per l'avvio automatico sequenziale dei server NVFlare (localhost e siti client) con un intervallo di tempo prestabilito tra ogni avvio.
+
+### Sintassi
+```bash
+./fl_start.sh <nome_progetto> <prod_directory>
+```
+
+### Parametri
+- `nome_progetto`: Nome del progetto (es. "test1")
+- `prod_directory`: Nome della directory prod (es. "prod_00")
+
+### Esempio
+```bash
+./fl_start.sh test1 prod_00
+```
+
+### Sequenza di Esecuzione
+1. Avvio del server localhost
+2. Attesa di 10 secondi
+3. Avvio di site-1
+4. Attesa di 10 secondi
+5. Avvio di site-2
+
+### Gestione
+- I timestamp vengono mostrati per ogni avvio
+- I server vengono avviati in background
+
+### Note
+- Eseguire dalla directory root del progetto
+- Richiede la struttura standard delle cartelle di NVFlare
+- Verifica automaticamente l'esistenza delle directory necessarie
+
 ## Struttura Moduli PyTorch (pt/)
 
 ### Descrizione
@@ -196,41 +231,6 @@ Gestisce la logica di training:
 - Lo sviluppo iniziale avviene nei notebook standalone
 - I componenti in `pt/` sono specifici per NVFlare
 - La struttura segue le convenzioni richieste da NVFlare
-
-## Script di Avvio Multi-Server
-
-### Descrizione
-Script per l'avvio automatico sequenziale dei server NVFlare (localhost e siti client) con un intervallo di tempo prestabilito tra ogni avvio.
-
-### Sintassi
-```bash
-./fl_start.sh <nome_progetto> <prod_directory>
-```
-
-### Parametri
-- `nome_progetto`: Nome del progetto (es. "test1")
-- `prod_directory`: Nome della directory prod (es. "prod_00")
-
-### Esempio
-```bash
-./fl_start.sh test1 prod_00
-```
-
-### Sequenza di Esecuzione
-1. Avvio del server localhost
-2. Attesa di 10 secondi
-3. Avvio di site-1
-4. Attesa di 10 secondi
-5. Avvio di site-2
-
-### Gestione
-- I timestamp vengono mostrati per ogni avvio
-- I server vengono avviati in background
-
-### Note
-- Eseguire dalla directory root del progetto
-- Richiede la struttura standard delle cartelle di NVFlare
-- Verifica automaticamente l'esistenza delle directory necessarie
 
 ## Configurazione dei Job
 
@@ -360,6 +360,7 @@ La console di amministrazione (admin console) è lo strumento principale per ges
 ```bash
 ./fl_admin.sh <nome_progetto> <prod_directory>
 ```
+- Successivamente verrà richiesto l'inserimento dello username, questo progetto usa "admin@nvidia.com" come default.
 
 ### Esempio
 ```bash
