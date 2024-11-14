@@ -103,8 +103,8 @@ job_config.add_fed_app("app1", fed_app)
 job_config.set_site_app("@ALL", "app1")
 
 # Set resource specifications
-job_config.add_resource_spec("site-1", {"num_of_gpus": 1, "mem_per_gpu_in_GiB": 1})
-job_config.add_resource_spec("site-2", {"num_of_gpus": 1, "mem_per_gpu_in_GiB": 1})
+job_config.add_resource_spec("site-1", {"num_of_gpus": 1, "mem_per_gpu_in_GiB": 6})
+job_config.add_resource_spec("site-2", {"num_of_gpus": 1, "mem_per_gpu_in_GiB": 6})
 
 # Generate job configuration
 job_output_dir = os.path.join(os.getcwd(), "workspace", project_name, project_sub_dir, "admin@nvidia.com", "transfer", "jobs")
