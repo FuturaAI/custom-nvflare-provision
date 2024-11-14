@@ -22,7 +22,7 @@ def update_and_rename_resources_file(project_name, prod_dir, site_path):
         
         for component in data['components']:
             if component['id'] == 'resource_manager':
-                component['args']['num_of_gpus'] = 6
+                component['args']['num_of_gpus'] = 1
                 component['args']['mem_per_gpu_in_GiB'] = 6
         
         with open(resources_json, 'w') as f:
