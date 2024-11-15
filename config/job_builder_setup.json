@@ -4,5 +4,7 @@
     "alpha": 5.0,
     "num_rounds": 5,
     "aggregation_epochs": 5,
-    "min_clients": 2
+    "min_clients": 2,
+    "batch_size": 64,
+    "learning_rate": 0.0007
 }

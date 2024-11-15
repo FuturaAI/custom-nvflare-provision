@@ -34,6 +34,8 @@ TRAIN_SPLIT_ROOT = config['train_split_root']
 ALPHA = config['alpha']
 NUM_ROUNDS = config['num_rounds']
 AGGREGATION_EPOCHS = config['aggregation_epochs']
+BATCH_SIZE = config['batch_size']
+LR = config['learning_rate']
 
 # Create ServerAppConfig
 server_app = ServerAppConfig()
@@ -88,7 +90,8 @@ client_app = ClientAppConfig()
 pneumonia_learner = CustomLearner(
     train_idx_root=TRAIN_SPLIT_ROOT,
     aggregation_epochs=AGGREGATION_EPOCHS,
-    lr=0.0007
+    lr=LR,
+    batch_size=BATCH_SIZE
 )
 client_app.add_component("pneumonia_learner", pneumonia_learner)
 
